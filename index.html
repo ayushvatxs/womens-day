@@ -22,7 +22,7 @@
 
         /* Hero Section */
         .hero {
-            height: 100vh;
+            min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -46,7 +46,49 @@
             max-width: 600px;
             color: #555;
             line-height: 1.6;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+        }
+
+        /* Apology Section */
+        .apology-section {
+            text-align: center;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .sorry-btn {
+            background-color: #ffb6c1;
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .sorry-btn:hover {
+            background-color: #ff9aa2;
+            transform: scale(1.05);
+        }
+
+        .sorry-message {
+            display: none;
+            margin-top: 15px;
+            padding: 15px 25px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            color: #d81b60;
+            font-weight: 400;
+            animation: fadeIn 0.8s ease-in;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* Floating Hearts Animation */
@@ -56,6 +98,7 @@
             color: #ff4081;
             opacity: 0;
             animation: floatUp 4s linear infinite;
+            z-index: -1; /* Keeps hearts behind the content */
         }
 
         @keyframes fadeIn {
@@ -68,10 +111,10 @@
             100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
         }
 
-        /* Photo Gallery */
+        /* Photo Gallery - Adjusted for 3 pictures */
         .gallery-container {
-            padding: 50px 20px;
-            max-width: 1000px;
+            padding: 20px 20px 50px;
+            max-width: 900px;
             margin: 0 auto;
             text-align: center;
         }
@@ -107,10 +150,9 @@
         footer {
             text-align: center;
             padding: 30px;
-            background-color: #fff;
+            background-color: transparent;
             color: #888;
             font-size: 0.9rem;
-            margin-top: 40px;
         }
 
         @media (max-width: 600px) {
@@ -128,13 +170,19 @@
         <p>To the most incredible, beautiful, and inspiring woman I know. Your strength, your kindness, and your smile make every day brighter. Today is all about celebrating you!</p>
     </section>
 
+    <div class="apology-section">
+        <button id="sorryBtn" class="sorry-btn">Sorry</button>
+        <div id="sorryMessage" class="sorry-message">
+            I know I mess up sometimes, but I love you more than words can say. Thank you for putting up with me and for being the most amazing part of my life. I'm sorry for [insert specific thing here, or delete this bracket].
+        </div>
+    </div>
+
     <section class="gallery-container">
         <h2>My Favorite Views</h2>
         <div class="gallery">
             <img src="pic1.jpg" alt="A beautiful picture of her">
-            <img src="pic2.jpg" alt="Another cute moment">
-            <img src="pic3.jpg" alt="Love">
-            <img src="pic4.jpg" alt="Her stunning smile">
+            <img src="pic2.jpg" alt="A lovely memory together">
+            <img src="pic3.jpg" alt="Her stunning smile">
         </div>
     </section>
 
@@ -143,6 +191,18 @@
     </footer>
 
     <script>
+        // Toggle the Sorry message
+        const sorryBtn = document.getElementById('sorryBtn');
+        const sorryMessage = document.getElementById('sorryMessage');
+
+        sorryBtn.addEventListener('click', () => {
+            if (sorryMessage.style.display === 'none' || sorryMessage.style.display === '') {
+                sorryMessage.style.display = 'block';
+            } else {
+                sorryMessage.style.display = 'none';
+            }
+        });
+
         // Script to generate floating hearts in the background
         function createHeart() {
             const heart = document.createElement('div');
@@ -153,7 +213,7 @@
             
             document.getElementById('hearts-container').appendChild(heart);
 
-            // Remove heart after it floats up to prevent memory leaks
+            // Remove heart after it floats up
             setTimeout(() => {
                 heart.remove();
             }, 5000);
